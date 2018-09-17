@@ -64,7 +64,7 @@ scalacOptions ++= {
 }
 
 requiresDOM in Test := true
-useYarn := true
+// useYarn := true
 
 publishMavenStyle := true
 
@@ -77,14 +77,23 @@ scmInfo := Some(ScmInfo(
   "scm:git:git@github.com:OutWatch/outwatch.git",
   Some("scm:git:git@github.com:OutWatch/outwatch.git")))
 
+// publishTo := {
+//   val nexus = "https://oss.sonatype.org/"
+//   if (isSnapshot.value)
+//     Some("snapshots" at nexus + "content/repositories/snapshots")
+//   else
+//     Some("releases" at nexus + "service/local/staging/deploy/maven2")
+//}
+
 publishTo := {
-  val nexus = "https://oss.sonatype.org/"
+  val nexus = "http://ubu-repo.ville.vdl.lu:8081/"
   if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
+    Some("snapshots" at nexus + "nexus/content/repositories/snapshots")
   else
-    Some("releases" at nexus + "service/local/staging/deploy/maven2")
+    Some("releases" at nexus + "nexus/content/repositories/releases")
 }
 
+credentials += Credentials("Sonatype Nexus Repository Manager", "ubu-repo.ville.vdl.lu", "deployment", "deployment123")
 
 pomExtra :=
   <developers>
